@@ -1,0 +1,26 @@
+body, html {
+    margin: 0;
+    padding: 0;
+	 background: black;
+}
+
+.page {
+    font-family: sans-serif;
+    color: #eeeeee;
+}
+
+canvas#ring_shape-canvas {
+    display: block;
+    z-index: 2;
+	 width: 100%;
+}
+
+.title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2vh;
+    text-align: center;
+    z-index: 2;
+}

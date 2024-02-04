@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page">
+        <div class="title">
+            <div>WebGL Experiment:</div>
+            <div>playing with fBm and polar coordinates</div>
+            <div>&nbsp;</div>
+            <div>hover & click</div>
+        </div>
+        <canvas id="ring_shape-canvas"></canvas>
+    </div>
+    
+    
+    <script type="x-shader/x-fragment" id="vertShader">
+        precision mediump float;
+    
+        varying vec2 vUv;
+        attribute vec2 a_position;
+    
+        void main() {
+            vUv = .5 * (a_position + 1.);
+            gl_Position = vec4(a_position, 0.0, 1.0);
+        }
+    </script>
+    
+    
+    <script type="x-shader/x-fragment" id="fragShader">
+        precision mediump float;
+    
+        varying vec2 vUv;
+        uniform float u_time;
+        uniform float u_ratio;
+        uniform float u_click_time;
+        uniform vec2 u_pointer;
+        uniform vec2 u_click;
+    
+        #define TWO_PI 6.28318530718
+        #define PI 3.14159265358979323846
+    
+        // ------------------------------------------------
+        // Generic fractional Brownian motion (fBm) noise
+    
+        float rand(vec2 n) {
+            return fract(cos(dot(n, vec2(12.9898, 4.1414))) * 43758.5453);
+        }
+        float noise(vec2 n) {
+            const vec2 d = vec2(0.0, 1.0);
+            vec2 b = floor(n), f = smoothstep(vec2(0.0), vec2(1.0), fract(n));
+            return mix(mix(rand(b), rand(b + d.yx), f.x), mix(rand(b + d.xy), rand(b + d.yy), f.x), f.y);
+        }
+        float fbm(vec2 n) {
+            float total = 0.0, amplitude = .4;
+            for (int i = 0; i < 4; i++) {
+                total += noise(n) * amplitude;
+                n += n;
+                amplitude *= 0.6;
+            }
+            return total;
+        }
+    
+        // ------------------------------------------------
+    
+        float get_ring_shape(vec2 uv, float innerRadius, float outerRadius) {
+            float distance = length(uv);
+            float line_width = outerRadius - innerRadius;
+            float ringValue = smoothstep(innerRadius, innerRadius + line_width, distance);
+            ringValue -= smoothstep(outerRadius, outerRadius + line_width, distance);
+            return clamp(ringValue, 0., 1.);
+        }
+    
+        float get_dot_shape(vec2 uv, vec2 center, float pwr) {
+            float mouse_center_dist = length(center);
+            float pointer_shape = 1. - length(uv - center);
+            pointer_shape = clamp(pointer_shape, 0., 1.);
+            pointer_shape = pow(pointer_shape, pwr);
+            pointer_shape *= .18;
+            return pointer_shape;
+        }
+    
+        float get_sym_impulse(float v, float pwr) {
+            return 1. - pow(1. - pow(2. * v - 1., 4.), pwr);
+        }
+    
+    
+        // ------------------------------------------------
+    
+        void main() {
+            vec2 uv = vUv * 2. - 1.;
+            uv.x *= u_ratio;
+    
+            float noise_scale = 6.;
+    
+            // overall speed
+            float t = .0003 * u_time;
+            float t_click = .001 * u_click_time;
+    
+            // timing
+            float expl_duration = 3.5;
+            float t_click_explosion = (1. - step(expl_duration, t_click)) * t_click;
+            t_click_explosion = pow(t_click_explosion, .6);
+    
+            //
+            float atg = atan(uv.y, uv.x);
+            float angle = (atg + PI) / TWO_PI;
+    
+            // radial noise
+            vec2 polar_uv = vec2(atg, t + 2. / pow(length(uv), .5));
+            polar_uv *= noise_scale;
+            float noise_left = fbm(polar_uv);
+            polar_uv.x = mod(polar_uv.x, noise_scale * TWO_PI);
+            float noise_right = fbm(polar_uv);
+            float noise = mix(noise_right, noise_left, smoothstep(-.2, .2, uv.x));
+    
+            // cursor coordinates
+            vec2 point = u_pointer * 2. - 1.;
+            point.x *= u_ratio;
+            vec2 click = u_click * 2. - 1.;
+            click.x *= u_ratio;
+    
+            // pointer following the cursor
+            float pointer_shape = 0.;
+            const int points_num = 5;
+            // split it to 5 points on click
+            for (int i = 0; i < points_num; i++) {
+                float a = float(i) / float(points_num) * TWO_PI;
+                a += 4. * t;
+                float sp = 6. * t_click_explosion * max(.2, rand(vec2(float(i))));
+                float x = sp * cos(a);
+                float y = -sp * sin(a);
+                pointer_shape += get_dot_shape(uv, click + vec2(x, y), 2.);
+            }
+            // keep the constant point size 
+            pointer_shape /= float(points_num);
+            pointer_shape *= min(5., 14. * t_click_explosion);
+            pointer_shape += get_dot_shape(uv, point, 4.);
+    
+            // darken in the enter
+            float center_shape = 1. - pow(smoothstep(2., .0, length(uv)), 50.);
+            pointer_shape *= center_shape;
+    
+            // draw ring 
+            float radius = .7 + .5 * pointer_shape;
+            float thickness = .1;
+            thickness += .75 * pow(pointer_shape, .6);
+            float ring_shape = get_ring_shape(uv * (.9 + .4 * noise), radius - .8 * thickness, radius + .2 * thickness);
+    
+            // radial gradient to be used for pointer
+            vec3 radial_color = vec3(0.);
+            radial_color.r = .5 + get_sym_impulse(fract(angle + .2 * t), 4.);
+            radial_color.g = 2. * get_sym_impulse(fract(angle + .2 * t), 10.);
+            radial_color.b = smoothstep(4., 0., radial_color.r);
+    
+            // apply shapes to colors
+            vec3 point_color = radial_color;
+            point_color.r *= 60. * pow(pointer_shape, 2.);
+            point_color *= pointer_shape;
+    
+            vec3 ring_color = vec3(1.);
+            ring_color *= ring_shape;
+    
+            // 
+            vec3 color = ring_color;
+            color += point_color;
+    
+            gl_FragColor = vec4(color, 1.);
+        }
+    </script>
+    <script src="style.js"></script>
+</body>
+</html>
