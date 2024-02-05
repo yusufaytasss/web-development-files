@@ -1,0 +1,100 @@
+@layer demo {
+    .card {
+      display: grid;
+      max-inline-size: 40ch;
+        
+      & > figcaption {
+        display: grid;
+        gap: 1ch;
+      }
+      
+      /* this could be a media query */
+      .no-preference & {
+        max-inline-size: 44ch; /* wanted the paragraph line lengths to match */
+        border-radius: 25px;
+        overflow: clip;
+        align-items: end;
+        grid-template-rows: 1fr auto;
+        
+        > * {
+          grid-area: 1 / 1;
+        }
+        
+        > img {
+          block-size: 100%;
+          inline-size: 100%;
+          object-fit: cover;
+        }
+        
+        > figcaption {
+          padding: 2ch;
+          padding-block-start: 17ch;
+          color: white;
+          background: linear-gradient(to top, #000, #0000);
+        }
+      }
+      
+      /* this could be a media query */
+      .reduced & {
+        gap: 1ch;
+        
+        > img {
+          border-radius: 25px;
+          block-size: 18ch;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+  
+  @layer demo.support {
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+  
+    html {
+      block-size: 100%;
+      color-scheme: dark light;
+    }
+  
+    body {
+      min-block-size: 100%;
+      font-family: system-ui, sans-serif;
+  
+      display: grid;
+      gap: 5vmin;
+      padding: 5vmin;
+      grid-template-columns: 1fr 1fr;
+      place-content: center;
+      place-items: center end;
+      
+      & > section:nth-child(2) {
+        place-self: center start;
+      }
+      
+      @media (width <= 1000px) {
+        grid-template-columns: unset;
+        grid-auto-flow: rows;
+        gap: 10vmin;
+      }
+    }
+    
+    section {
+      display: grid;
+      gap: 5vmin;
+      
+      > p {
+        text-align: center;
+      }
+    }
+    
+    p {
+      line-height: 1.5;
+      text-wrap: pretty;
+    }
+    
+    img {
+      max-width: 100%;
+    }
+  }
