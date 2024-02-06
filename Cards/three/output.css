@@ -1,0 +1,114 @@
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: sans-serif;
+  line-height: 1.6;
+  background: radial-gradient(ellipse at top center, #310038 0%, #000000 100%);
+  background-size: cover;
+  min-height: 100vh;
+  margin: 0;
+}
+
+.scroller {
+  overflow: auto;
+  padding: 1rem;
+  scroll-timeline-name: --scroller;
+  scroll-timeline-axis: inline;
+}
+
+ol,
+ul {
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  padding-left: 0;
+  counter-reset: list-item;
+  perspective: 9000px;
+  transform-style: preserve-3d;
+  perspective-origin: 50% 50%;
+}
+ol > li,
+ul > li {
+  flex: 1 1 240px;
+  min-width: 240px;
+  border: 1px solid currentColor;
+  padding: 1rem;
+  animation: auto ease-in-out intro forwards, auto ease-in-out outro forwards;
+  animation-timeline: view(inline);
+  animation-range: entry, exit;
+  transform-origin: bottom center;
+}
+ol p,
+ol h2,
+ul p,
+ul h2 {
+  margin-top: 1rem;
+  margin-bottom: 0;
+}
+ol h2,
+ul h2 {
+  color: #aaa;
+  font-weight: normal;
+}
+
+ol > li {
+  display: flex;
+  flex-direction: column;
+  color: #ccc;
+  position: relative;
+  overflow: hidden;
+}
+ol > li::before {
+  counter-increment: list-item;
+  content: counter(list-item) ".";
+  font-size: 5em;
+  font-weight: bold;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+ol > li::after {
+  content: "";
+  background-image: var(--bg);
+  position: absolute;
+  inset: -20px;
+  background-size: cover;
+  transform: scale(1);
+  transition: transform 0.5s ease-out, opacity 0.4s linear;
+  opacity: 0;
+  z-index: -1;
+}
+ol > li:hover {
+  color: #fff;
+}
+ol > li:hover::after {
+  transform: scale(1.1) rotate(4deg);
+  opacity: 0.8;
+}
+
+@keyframes intro {
+  from {
+    transform-origin: center left;
+    opacity: 0;
+    scale: 0;
+  }
+  to {
+    transform-origin: center left;
+    opacity: 1;
+    scale: 1;
+  }
+}
+@keyframes outro {
+  from {
+    transform-origin: center right;
+    opacity: 1;
+    scale: 1;
+  }
+  to {
+    transform-origin: center right;
+    opacity: 0;
+    scale: 0;
+  }
+}
+
+/*# sourceMappingURL=output.css.map */
