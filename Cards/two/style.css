@@ -1,0 +1,72 @@
+@layer demo {
+    article {
+      display: grid;
+      gap: 2ch;
+      grid-row: span 4; 
+      grid-template-rows: subgrid;
+      margin-inline: 5vmin;
+      margin-block: 7.5vmin;
+    }
+  }
+  
+  @layer demo.support {
+    :root {
+      --text-1: oklch(20% none none);
+      --text-2: oklch(30% none none);
+      --text-3: oklch(40% none none);
+      
+      @media (prefers-color-scheme: dark) {
+        --text-1: oklch(95% none none);
+        --text-2: oklch(85% none none);
+        --text-3: oklch(70% none none);
+      }
+    }
+    
+    * {
+      box-sizing: border-box;
+      margin: 0;
+    }
+  
+    html {
+      block-size: 100%;
+      color-scheme: dark light;
+    }
+  
+    body {
+      min-block-size: 100%;
+      font-family: system-ui, sans-serif;
+  
+      display: grid;
+      place-content: center;
+      grid-template-columns: repeat(auto-fill, minmax(30ch, 1fr));
+      padding: 5vmin;
+    }
+    
+    header {
+      display: grid;
+      color: var(--text-1);
+    }
+    
+    hr {
+      height: 2px;
+      width: 10ch;
+      border: none;
+      background: LinkText;
+      background: linear-gradient(to bottom right in oklab, oklch(70% 0.5 340), oklch(90% 0.5 200)) fixed;
+    }
+    
+    p {
+      max-inline-size: 40ch;
+      text-wrap: balance;
+      line-height: 1.5;
+      color: var(--text-2);
+    }
+    
+    h2 {
+      text-wrap: balance;
+    }
+    
+    footer {
+      color: var(--text-3);
+    }
+  }
