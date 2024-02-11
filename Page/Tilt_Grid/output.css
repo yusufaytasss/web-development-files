@@ -1,0 +1,627 @@
+.tiltgrid {
+  overflow: hidden;
+}
+@media screen and (min-width: 720px) {
+  .tiltgrid {
+    margin-inline: clamp(1rem, 0.5714285714rem + 1.9047619048vw, 2rem);
+  }
+}
+.tiltgrid__container {
+  --skew-y: calc(var(--scroll-tilt, -7) * 1deg) ;
+  --easing: cubic-bezier(1,.45,.7,1.05);
+  transform: skewY(var(--skew-y)) scale(1.05);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(0.25rem, -0.0714285714rem + 1.4285714286vw, 1rem);
+  transition: gap 0.3s ease;
+}
+@media screen and (min-width: 720px) {
+  .tiltgrid__container {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.tiltgrid__container:hover img {
+  filter: saturate(0);
+  transition: scale 0.8s, filter 1s;
+}
+.tiltgrid__container > div {
+  overflow: hidden;
+  clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+  opacity: 0;
+  animation: tiltslide 1s forwards;
+}
+.tiltgrid__container > div:nth-child(1) {
+  animation-delay: 0.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(2) {
+  animation-delay: 0.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(3) {
+  animation-delay: 0.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(4) {
+  animation-delay: 0.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(5) {
+  animation-delay: 0.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(6) {
+  animation-delay: 0.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(7) {
+  animation-delay: 0.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(8) {
+  animation-delay: 0.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(9) {
+  animation-delay: 0.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(10) {
+  animation-delay: 0.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(11) {
+  animation-delay: 0.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(12) {
+  animation-delay: 0.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(13) {
+  animation-delay: 0.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(14) {
+  animation-delay: 0.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(15) {
+  animation-delay: 0.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(16) {
+  animation-delay: 0.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(17) {
+  animation-delay: 0.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(18) {
+  animation-delay: 0.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(19) {
+  animation-delay: 0.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(20) {
+  animation-delay: 1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(21) {
+  animation-delay: 1.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(22) {
+  animation-delay: 1.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(23) {
+  animation-delay: 1.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(24) {
+  animation-delay: 1.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(25) {
+  animation-delay: 1.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(26) {
+  animation-delay: 1.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(27) {
+  animation-delay: 1.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(28) {
+  animation-delay: 1.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(29) {
+  animation-delay: 1.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(30) {
+  animation-delay: 1.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(31) {
+  animation-delay: 1.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(32) {
+  animation-delay: 1.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(33) {
+  animation-delay: 1.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(34) {
+  animation-delay: 1.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(35) {
+  animation-delay: 1.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(36) {
+  animation-delay: 1.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(37) {
+  animation-delay: 1.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(38) {
+  animation-delay: 1.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(39) {
+  animation-delay: 1.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(40) {
+  animation-delay: 2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(41) {
+  animation-delay: 2.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(42) {
+  animation-delay: 2.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(43) {
+  animation-delay: 2.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(44) {
+  animation-delay: 2.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(45) {
+  animation-delay: 2.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(46) {
+  animation-delay: 2.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(47) {
+  animation-delay: 2.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(48) {
+  animation-delay: 2.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(49) {
+  animation-delay: 2.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(50) {
+  animation-delay: 2.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(51) {
+  animation-delay: 2.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(52) {
+  animation-delay: 2.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(53) {
+  animation-delay: 2.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(54) {
+  animation-delay: 2.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(55) {
+  animation-delay: 2.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(56) {
+  animation-delay: 2.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(57) {
+  animation-delay: 2.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(58) {
+  animation-delay: 2.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(59) {
+  animation-delay: 2.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(60) {
+  animation-delay: 3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(61) {
+  animation-delay: 3.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(62) {
+  animation-delay: 3.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(63) {
+  animation-delay: 3.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(64) {
+  animation-delay: 3.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(65) {
+  animation-delay: 3.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(66) {
+  animation-delay: 3.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(67) {
+  animation-delay: 3.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(68) {
+  animation-delay: 3.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(69) {
+  animation-delay: 3.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(70) {
+  animation-delay: 3.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(71) {
+  animation-delay: 3.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(72) {
+  animation-delay: 3.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(73) {
+  animation-delay: 3.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(74) {
+  animation-delay: 3.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(75) {
+  animation-delay: 3.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(76) {
+  animation-delay: 3.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(77) {
+  animation-delay: 3.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(78) {
+  animation-delay: 3.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(79) {
+  animation-delay: 3.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(80) {
+  animation-delay: 4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(81) {
+  animation-delay: 4.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(82) {
+  animation-delay: 4.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(83) {
+  animation-delay: 4.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(84) {
+  animation-delay: 4.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(85) {
+  animation-delay: 4.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(86) {
+  animation-delay: 4.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(87) {
+  animation-delay: 4.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(88) {
+  animation-delay: 4.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(89) {
+  animation-delay: 4.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(90) {
+  animation-delay: 4.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(91) {
+  animation-delay: 4.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(92) {
+  animation-delay: 4.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(93) {
+  animation-delay: 4.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(94) {
+  animation-delay: 4.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(95) {
+  animation-delay: 4.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(96) {
+  animation-delay: 4.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(97) {
+  animation-delay: 4.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(98) {
+  animation-delay: 4.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(99) {
+  animation-delay: 4.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(100) {
+  animation-delay: 5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(101) {
+  animation-delay: 5.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(102) {
+  animation-delay: 5.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(103) {
+  animation-delay: 5.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(104) {
+  animation-delay: 5.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(105) {
+  animation-delay: 5.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(106) {
+  animation-delay: 5.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(107) {
+  animation-delay: 5.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(108) {
+  animation-delay: 5.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(109) {
+  animation-delay: 5.45s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(110) {
+  animation-delay: 5.5s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(111) {
+  animation-delay: 5.55s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(112) {
+  animation-delay: 5.6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(113) {
+  animation-delay: 5.65s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(114) {
+  animation-delay: 5.7s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(115) {
+  animation-delay: 5.75s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(116) {
+  animation-delay: 5.8s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(117) {
+  animation-delay: 5.85s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(118) {
+  animation-delay: 5.9s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(119) {
+  animation-delay: 5.95s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(120) {
+  animation-delay: 6s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(121) {
+  animation-delay: 6.05s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(122) {
+  animation-delay: 6.1s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(123) {
+  animation-delay: 6.15s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(124) {
+  animation-delay: 6.2s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(125) {
+  animation-delay: 6.25s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(126) {
+  animation-delay: 6.3s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(127) {
+  animation-delay: 6.35s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div:nth-child(128) {
+  animation-delay: 6.4s;
+  animation-duration: 0.7s;
+}
+.tiltgrid__container > div img {
+  aspect-ratio: 16/9;
+  min-width: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+  pointer-events: none;
+  filter: saturate(1);
+  transform: skewY(calc(var(--skew-y) * -1));
+  scale: 1.4;
+  transition: scale 0.8s, filter 0.6s;
+}
+.tiltgrid__container > div:hover img {
+  scale: 1.5;
+  filter: saturate(1);
+  transition: scale 0.8s, filter 0.6s;
+}
+
+@keyframes tiltslide {
+  from {
+    opacity: 0;
+    clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+    filter: saturate(0);
+  }
+  to {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 1%, 100% 100%, 0% 100%);
+    filter: saturate(1);
+  }
+}
+.p-x {
+  padding-inline: 1.5em;
+}
+
+.hero {
+  padding-top: clamp(6rem, 4.2857142857rem + 7.619047619vw, 10rem);
+  padding-bottom: clamp(2rem, 1.1428571429rem + 3.8095238095vw, 4rem);
+  position: sticky;
+  top: 0;
+  transform-origin: 50% 0%;
+}
+.hero .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: center;
+}
+.hero .container > * {
+  margin: 0;
+}
+.hero .container h1 {
+  font-size: clamp(1.5rem, 0.8571428571rem + 2.8571428571vw, 3rem);
+  line-height: 1.2;
+}
+.hero .container p {
+  margin-top: 0.5em;
+  font-size: clamp(0.875rem, 0.7142857143rem + 0.7142857143vw, 1.25rem);
+  color: #666;
+}
+
+.bottom {
+  min-height: 200vh;
+  padding-block: clamp(2rem, 1.5714285714rem + 1.9047619048vw, 3rem);
+}
+.bottom .container {
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+/*# sourceMappingURL=output.css.map */

@@ -1,0 +1,116 @@
+.tiltgrid {
+	overflow: hidden;
+		@media screen and (min-width:720px) {
+			margin-inline: clamp(1rem, 0.5714285714285714rem + 1.9047619047619049vw, 2rem);
+		}
+	&__container {
+		--skew-y: calc(var(--scroll-tilt, -7) * 1deg) ;
+  --easing: cubic-bezier(1,.45,.7,1.05);
+  transform: skewY(var(--skew-y)) scale(1.05);
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		@media screen and (min-width:720px) {
+			grid-template-columns: repeat(4, 1fr);
+		}
+		gap: clamp(0.25rem, -0.0714285714285714rem + 1.4285714285714286vw, 1rem);
+		transition: gap 0.3s ease;
+		&:hover {
+			img {
+				filter: saturate(0);
+				transition: scale 0.8s, filter 1s;
+			}
+		}
+  & > div {
+    overflow: hidden;
+    clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+    opacity: 0;
+    animation: tiltslide 1s forwards;
+    @for $i from 1 through 128 {
+      &:nth-child(#{$i}) {
+        animation-delay: #{0.05 * $i}s;
+        animation-duration: 0.7s;
+							
+      }
+    }
+    img {
+      aspect-ratio: 16 / 9;
+      min-width: 100%;
+      object-fit: cover;
+      object-position: 50% 50%;
+      pointer-events: none;
+      filter: saturate(1);
+      transform: skewY(calc(var(--skew-y) * -1));
+						scale: 1.4;
+      transition: scale 0.8s, filter 0.6s;
+    }
+    &:hover {
+      img {
+        scale: 1.5;
+        filter: saturate(1);
+								transition: scale 0.8s, filter 0.6s;
+      }
+    }
+  }
+	}
+}
+@keyframes tiltslide {
+  from {
+    opacity: 0;
+    clip-path: polygon(0 0, 100% 0%, 100% 0, 0 0);
+				filter: saturate(0);
+  }
+  to {
+    opacity: 1;
+    clip-path: polygon(0 0, 100% 1%, 100% 100%, 0% 100%);
+				filter: saturate(1);
+  }
+}
+//Unrelated
+.p-x {
+	padding-inline: 1.5em;
+}
+
+.hero {
+	padding-top: clamp(6rem, 4.285714285714286rem + 7.6190476190476195vw, 10rem);
+	padding-bottom: clamp(2rem, 1.1428571428571428rem + 3.8095238095238098vw, 4rem);
+	position: sticky;
+	top: 0;
+	transform-origin: 50% 0%;
+	.container {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		> * {
+			margin: 0;
+		}
+		h1 {
+			font-size: clamp(1.5rem, 0.8571428571428572rem + 2.857142857142857vw, 3rem);
+			line-height: 1.2;
+		}
+		p {
+			margin-top: 0.5em;
+			font-size: clamp(0.875rem, 0.7142857142857143rem + 0.7142857142857143vw, 1.25rem);
+			color: #666;
+		}
+	}
+}
+.bottom {
+	min-height: 200vh;
+	padding-block: clamp(2rem, 1.5714285714285714rem + 1.9047619047619049vw, 3rem);
+	.container {
+		text-align: center;
+	}
+}
+img {
+	max-width: 100%;
+	height: auto;
+	display: block;
+}
+.container {
+	max-width: 1000px;
+	margin: 0 auto;
+}
+body {
+	overflow-x: hidden;
+}
