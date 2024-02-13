@@ -1,0 +1,135 @@
+:root {
+  font-family: "Poppins", sans-serif;
+  color: #fff;
+  --color-primary: #3E66A0;
+  --cover-placeholder: var(--color-primary);
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  height: 100vh;
+}
+
+.c-accordion {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: flex;
+  flex: 1 1 auto;
+  overflow: hidden;
+}
+.c-accordion__item {
+  --cover: var(--cover-placeholder);
+  background: var(--cover);
+  background-position: center center;
+  background-size: cover;
+  background-color: var(--cover-placeholder);
+  background-blend-mode: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
+  position: relative;
+  flex-grow: 1;
+  height: 100%;
+  width: 100px;
+  min-width: 2.05rem;
+  transition: all 0.3s ease-in-out;
+}
+.c-accordion__item:hover, .c-accordion__item:focus-within, .c-accordion__item:target {
+  _flex-grow: 2;
+  width: 50%;
+  background-color: transparent;
+}
+.c-accordion__item:hover .c-accordion__title--hover-hide, .c-accordion__item:focus-within .c-accordion__title--hover-hide, .c-accordion__item:target .c-accordion__title--hover-hide {
+  max-height: 0;
+  opacity: 0;
+}
+.c-accordion__item:hover .c-accordion__title--hover-show, .c-accordion__item:focus-within .c-accordion__title--hover-show, .c-accordion__item:target .c-accordion__title--hover-show {
+  opacity: 1;
+}
+.c-accordion__item:hover .c-accordion__description, .c-accordion__item:focus-within .c-accordion__description, .c-accordion__item:target .c-accordion__description {
+  opacity: 1;
+}
+.c-accordion__item:hover {
+  cursor: pointer;
+}
+.c-accordion__action {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(15, 15, 15, 0.75);
+  background: linear-gradient(180deg, rgba(15, 15, 15, 0) 0%, #111111 100%);
+  text-decoration: none;
+}
+.c-accordion__title {
+  color: white;
+  font-family: "Roboto Condensed";
+  margin: 0;
+  max-height: 100%;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+.c-accordion__title--hover-show {
+  opacity: 0;
+  width: 100%;
+}
+.c-accordion__title--hero {
+  font-size: 4rem;
+  line-height: 100%;
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-left: -145px;
+}
+.c-accordion__aside {
+  padding: 1rem;
+  position: absolute;
+  height: 100%;
+  right: 1rem;
+  bottom: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.c-accordion__aside:before {
+  content: "+";
+  color: #fff;
+  margin-bottom: 1rem;
+  font-size: 2rem;
+  display: inline-block;
+}
+.c-accordion__aside:after {
+  content: "";
+  flex-grow: 1;
+  width: 1px;
+  display: block;
+  margin-top: 1rem;
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.c-accordion__content {
+  padding: 24rem 4.5rem 0rem 8rem;
+  width: 55%;
+  text-align: left;
+  line-height: 4px;
+  font-size: 16px;
+  left: -50rem;
+}
+.c-accordion__description {
+  color: white;
+  font-weight: 500;
+  line-height: 120%;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: 100%;
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+  margin-left: -145px;
+  width: 85%;
+}
+
+/*# sourceMappingURL=output.css.map */
