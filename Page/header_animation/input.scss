@@ -1,0 +1,207 @@
+//failover for firefox which applies the final state of the animation for some reason.
+@supports(animation-timeline: view()){
+    @keyframes fade-out {
+      to {
+        background-size: 150%;
+        opacity: 0;
+      }
+    }
+    @keyframes zoom-out {
+      to {
+        font-size: 2rem;
+        padding-left: .1em;
+      }
+    }
+    @keyframes appear {
+      to {
+        opacity: 1;
+      }
+    }
+    @keyframes max-out {
+      to {
+        max-width: 100%;
+      }
+    }
+    .hero {
+      animation: fade-out linear both;
+      animation-timeline: view();
+      animation-range: exit -100px;
+    }
+    nav {
+      animation: max-out linear both;
+      animation-timeline: view();
+      animation-range-start: 80vh;
+      animation-range-end: 100vh;
+    }
+    nav:after {
+      animation: appear linear both;
+      animation-timeline: view();
+      animation-range-start: 60vh;
+      animation-range-end: 100vh;
+    }
+    .logo {
+      animation: zoom-out linear both;
+      animation-timeline: view();
+      animation-range-start: 10vh;
+      animation-range-end: 100vh;
+    }
+  }
+  @supports(not(animation-timeline: view())) {
+    .notice:after {
+      content: ' animation-timeline of scroll and view are currently not supported in your browser.';
+    }
+  }
+  //fluff
+  @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100..700&display=swap');
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1rem;
+    margin: 0;
+    background-color: #1f2020;
+    color: #F9F6EF;
+    
+    
+  }
+  .hero, nav, main {
+    max-width: 75ch;
+    margin: 0 auto;
+    padding-inline: 1em;
+  
+  }
+  h1, h2, h3 {
+    text-wrap: balance;
+    line-height: .8;
+  }
+  p {
+    text-wrap: pretty;
+    line-height: 1.5;
+  }
+  nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    min-height: 3rem;
+    background-color: #1f2020d0;
+    backdrop-filter: blur(.2em);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    ul {
+      padding-right: 1em;
+      margin: 0;
+      display: inline-flex;
+      gap: 1rem;
+      li {
+        list-style: none;
+        display: inline-block;
+        cursor: pointer;
+        transition: .5s linear;
+        &:hover {
+          text-decoration: underline #5EB0E5;
+        }
+      }
+    }
+  }
+  .hero {
+    min-height: 60vh;
+    background-image:
+      url("https://images.unsplash.com/photo-1622849026560-7e723676e3d1?q=80&w=2938&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    background-size: 50%;
+    background-repeat: no-repeat;
+    background-position: 100% 50%;
+    mix-blend-mode: lighten;
+    display: grid;
+    align-content: center;
+    container-type: inline-size;
+    h1 {
+      font-size: clamp(2rem, 7cqi, 10rem);
+      font-weight: 100;
+      max-width: 50%;
+      color: hsl(290 85% 75%);
+    }
+    .btn {
+      display: inline;
+      position: relative;
+      padding: .5em 1em;
+      cursor: pointer;
+      &:before,
+      &:after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: //fallback
+          linear-gradient(45deg,
+              hsl(0, 100%, 70%),
+              hsl(30, 100%, 70%),
+              hsl(60, 100%, 70%),
+              hsl(90, 100%, 70%),
+              hsl(120, 100%, 70%),
+              hsl(150, 100%, 70%),
+              hsl(180, 100%, 70%),
+              hsl(210, 100%, 70%),
+              hsl(240, 100%, 70%),
+              hsl(270, 100%, 70%),
+              hsl(300, 100%, 70%),
+              hsl(330, 100%, 70%),
+              hsl(360, 100%, 70%)
+            );
+        background: linear-gradient(in hsl longer hue 45deg, #f66 0 0);
+        z-index: -1;
+        clip-path: polygon(90% 0, 100% 50%, 90% 99%, 0% 100%, 8% 50%, 0% 0%);
+      }
+      &:after {
+        background: #1f2020;
+        inset: 3px;
+      }
+    }
+  }
+  nav:after {
+    content: '';
+    position: absolute;
+    opacity: 0;
+    height: .05em;
+    width: 100%;
+    bottom: 0;
+    background: //fallback
+      linear-gradient(90deg,
+          hsl(0, 100%, 70%),
+          hsl(30, 100%, 70%),
+          hsl(60, 100%, 70%),
+          hsl(90, 100%, 70%),
+          hsl(120, 100%, 70%),
+          hsl(150, 100%, 70%),
+          hsl(180, 100%, 70%),
+          hsl(210, 100%, 70%),
+          hsl(240, 100%, 70%),
+          hsl(270, 100%, 70%),
+          hsl(300, 100%, 70%),
+          hsl(330, 100%, 70%),
+          hsl(360, 100%, 70%)
+        );
+    background: linear-gradient(in hsl longer hue 90deg, #f66 0 0);
+  }
+  .logo {
+    font-weight: 900;
+    font-size: 10cqi;
+    background: //fallback
+        linear-gradient(45deg,
+            hsl(0, 100%, 70%),
+            hsl(30, 100%, 70%),
+            hsl(60, 100%, 70%),
+            hsl(90, 100%, 70%),
+            hsl(120, 100%, 70%),
+            hsl(150, 100%, 70%),
+            hsl(180, 100%, 70%),
+            hsl(210, 100%, 70%),
+            hsl(240, 100%, 70%),
+            hsl(270, 100%, 70%),
+            hsl(300, 100%, 70%),
+            hsl(330, 100%, 70%),
+            hsl(360, 100%, 70%)
+          );
+    background: linear-gradient(in hsl longer hue 40deg, #f66 0 0);
+    background-clip: text;
+    color: #0000;
+  }
