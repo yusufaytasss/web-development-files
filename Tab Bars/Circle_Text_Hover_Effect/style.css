@@ -1,0 +1,117 @@
+:root {
+    --circle-size: 25px;
+    --letter-width: 14px;
+    --letter-space: 60px;
+    --font-size: 10px;
+    --letter-spacing-x: 20;
+    --second-circle-border: 4px;
+    --second-circle-size: 35px;
+  }
+  
+  body {
+    font-family: 'Ubuntu', sans-serif;
+    margin: 0 auto;
+    background-color: #191a1e;
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .cursor {
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    background: white;
+    border-radius: 100%;
+    cursor: none;
+    z-index: 100;
+    transition: background .1s ease;
+    mix-blend-mode: difference;
+  }
+  
+  .cursor .link {
+    position: absolute;
+    top: 0;
+    color: white;
+    animation: spin 5s infinite linear;
+    transform-origin: center center;
+    width: 25px;
+    height: 25px;
+  }
+  
+  .cursor .icon {
+    width: var(--circle-size);
+    height: var(--circle-size);
+    line-height: var(--circle-size);
+    position: absolute;
+    top: 0;
+    text-align: center;
+  }
+  
+  .cursor:after {
+    display: block;
+    content: '';
+    width: 35px;
+    height: 35px;
+    border-radius: 100%;
+    z-index: -1;
+    border: var(--second-circle-border) solid white;
+    left: -9px;
+    top: -9px;
+    position: relative;
+    transition: opacity .2s ease, transform .3s ease;
+  }
+  
+  .cursor.active {
+    background: rgba(0,0,0,0);
+  }
+  
+  .cursor.active:after {
+    opacity: 0;
+    transform: scale(2);
+  }
+  
+  nav {
+    display: flex;
+  }
+  
+  nav a {
+    text-decoration: none !important;
+    color: white;
+    font-weight: 700;
+    font-size: 30px;
+    padding: 20px 40px;
+  }
+  
+  
+  .circle-letter {
+    position: absolute;
+    width: var(--letter-width);
+    text-align: center;
+    height: calc(var(--circle-size) + var(--letter-space));
+    left: calc(var(--circle-size) / 2 - var(--letter-width) / 2);
+    top: calc(var(--letter-space) / 2 * -1);
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: var(--font-size);
+  }
+  
+  .circle-letter-bottom {
+    width: var(--letter-width);
+    height: var(--letter-width);
+    text-align: center;
+    position: absolute;
+    bottom: 0;
+    transform: rotate(180deg);
+  }
+  
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
