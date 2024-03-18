@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>CSS GRID</title>
+</head>
+<body>
+    <!-- overdesigned stuff -->
+
+<sup>Make things easier, not harder</sup>
+<h1><i>Dead</i> <i>simple</i> <i>grid.</i></h1>
+
+
+<!-- also a bit overdesigned stuff -->
+<div class="lead">
+	<p>A simpler to configure variant of Chris Coyiers ”Expando Grid”</p>
+	<p>
+		source: <a href="https://codepen.io/chriscoyier/pen/GRYKObj" target="_blank">codepen.io/chriscoyier/pen/GRYKOb</a>
+		<u class="hello-i-am-a-line"></u>
+		<b>Reasoning</b>
+		Use simple CSS-variables to make these "auto-grids" simpler and more "modular". Also i've got somewhat of a strong belief in thinking "element first" and screen sizes second. In practice this means that we simply create our elements, say a card, and that element should then scale to whatever. Or like in this case scale to whatever columns within some defined reason.
+	</p>
+</div>
+
+
+<!-- your bog standard other stuff -->
+<div class="grid">
+  <div class="card">
+    <h2>Lorem ipsum</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>Is Simply</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>Dummy Text</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>Of The Typesetting</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>Industry</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>It Has Survived</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>Since The</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <h2>1600's</h2>
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+</div>
+
+
+<hr>
+<h3>Using data-attribute to control max columns</h3>
+
+<p class="lead">data-columns="2"</p>
+<div class="grid" data-columns="2">
+  <div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+    <div class="card">
+    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+  </div>
+  </div>
+
+<p class="lead">data-columns="3"</p>
+<div class="grid" data-columns="3">
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+</div>
+
+<p class="lead">data-columns="4"</p>
+<div class="grid" data-columns="4">
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+	<div class="card">
+		<p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Adipisci illo nobis quisquam. Officiis earum culpa sit in consequuntur!</p>
+	</div>
+</div>
+
+<p>...and we could go on and on.</p>
+</body>
+</html>

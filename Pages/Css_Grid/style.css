@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/*
+	The stuff that matters
+	Short reasoning: Application logic shouldn't mix with obvious config params.
+	-
+	see Chris Coyiers 'Expando Grid': https://codepen.io/chriscoyier/pen/GRYKObj
+*/
+
+
+/* 1. Define critical things here */
+:root {
+	--grid-columns: 5;
+	--grid-min-width: 250px;
+	--grid-gap: 2.5rem;
+}
+
+
+/* 2. Apply here */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(var(--grid-min-width), 100% / calc(var(--grid-columns) + 1))), 1fr));
+  gap: var(--grid-gap);
+}
+
+
+/* ... and we're done ... */
+
+
+/* 
+	but wait -- couldn't we do more stuff?
+	...sure, let's use data-attributes and modify local CSS variables
+*/
+
+.grid[data-columns] {
+	
+	/* define */
+	&[data-columns="1"]{ --grid-columns: 1; }
+	&[data-columns="2"]{ --grid-columns: 2; }
+	&[data-columns="3"]{ --grid-columns: 3; }
+	&[data-columns="4"]{ --grid-columns: 4; }
+	&[data-columns="5"]{ --grid-columns: 5; }
+	&[data-columns="6"]{ --grid-columns: 6; }
+	
+	/* apply */
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, max(var(--grid-min-width), 100% / calc(var(--grid-columns) + 1))), 1fr));
+}
+
+
+
+
+
+
+
+/*----------------------------------------
+
+	# MISC IRRELEVANT STYLING
+
+----------------------------------------*/
+
+.grid[data-columns]{
+	margin-bottom: var(--spacing-double);
+	> div { padding: var(--spacing); background: rgba(255,255,255,0.1); border-radius: 1rem; }
+}
+
+:root {
+	--spacing: 2rem;
+	--spacing-half: 1rem;
+	--spacing-double: 4rem;
+}
+
+
+/* reset: Josh's Custom CSS Reset @ https://www.joshwcomeau.com/css/custom-css-reset/ */
+*,*::before,*::after,input,select,form{box-sizing:border-box}*{margin:0}html,body{height:100%}body{line-height:1.5;-webkit-font-smoothing:antialiased}img,picture,video,canvas,svg{display:block;max-width:100%}input,button,textarea,select{font:inherit}p,h1,h2,h3,h4,h5,h6{overflow-wrap:break-word}
+
+body {
+	height: auto;
+  background: #111;
+  color: #fff8;
+  font: 300 100%/1.5 system-ui;
+  padding: 5svh;
+	background: linear-gradient(to top, hsl(260, 84%, 5%), hsl(260, 84%, 0%)); 
+	background-attachment: fixed;
+}
+
+body, html { min-height: 100%; }
+
+body {
+		&::before {
+		width: 100%; display: block; content: '';
+		height: .1rem;  position: absolute; top: 0; left: 0;
+		background: linear-gradient(to right, cyan, magenta, yellow);
+	}
+}
+
+
+/* irrelevant garbage */
+* { text-align: center; } /* :) */
+h1,
+h2,
+h3 {
+  font-weight: 400;
+  color: #fff9;
+  line-height: 1.1;
+  letter-spacing: 0.06rem;
+	word-break: break-all;
+}
+
+h1 { 
+	font-family: 'Pacifico', cursive, system-ui;
+	font-size: clamp(3.8rem, calc(5vw + 1rem), 5.8rem);
+	margin-bottom: var(--spacing-half);
+	text-transform: lowercase;
+	color: #fff;
+	position: relative;
+	z-index: 1;
+}
+
+h2 { margin: 0 0 var(--spacing-half); font-size: clamp(100%, calc(1vw + 1rem), 125%); }
+h3 {  margin: 0 0 var(--spacing); font-size: clamp(125%, calc(1vw + 1rem), 150%);  }
+
+/* dark voodoo stuff */
+sup {
+	text-transform: uppercase;
+	font-size: 70%;
+	color: rgba(255, 255, 255, 0.4);
+	letter-spacing: .15rem;
+	&:after, &:before {
+		display: inline-block;
+		content: '---------------';
+		word-break: none;
+		letter-spacing: -.1rem;
+		color: rgba(255, 255, 255, 0.3);
+	}
+	&:after { margin-left: .5rem; }
+	&:before { margin-right: .5rem; }
+}
+
+
+
+a { color: currentcolor; text-underline-offset: .2rem; text-decoration: none; }
+a:hover, a:active, a:focus { color: cyan; }
+
+i { font-style: normal; }
+
+/* why not */
+@keyframes why-not {
+	0% { opacity: 1 }
+	90% { opacity: 1; text-shadow: 0 0 var(--spacing-double) currentcolor; }
+	95% { opacity: 0; text-shadow: 0 0 20rem currentcolor; transform: rotateX(0); }
+	100% { opacity: 1; text-shadow: 0 0 20rem currentcolor; transform: rotateX(25deg); }
+}
+
+h1 {
+	i:nth-child(1){ color: cyan; text-shadow: 0 0 var(--spacing-double) currentcolor; }
+	i:nth-child(2){ color: magenta; text-shadow: 0 0 var(--spacing-double) currentcolor; }
+	i:nth-child(3){ color: yellow; text-shadow: 0 0 var(--spacing-double) currentcolor;}
+	
+	i {
+		display: inline-block;
+		animation: why-not alternate 1s linear infinite;
+		&:nth-child(2){ animation-delay: 20ms; }
+		&:nth-child(3){ animation-delay: 40ms; }
+	}
+}
+
+
+.lead {
+	margin: 0 auto var(--spacing-double);
+	position: relative;
+	z-index: 10;
+	width: 100%; max-width: 50rem;
+	p { margin: 0 auto; }
+	p:first-child { font-size: 150%; color: white; margin-bottom: calc(var(--spacing) / 4); }
+}
+
+u.hello-i-am-a-line, hr {
+	height: .5px;
+	display: block;
+	margin: var(--spacing-double) auto;
+	max-width: 70%;
+	width: 100%;
+	border: 0;
+	background: rgba(255,255,255,0.2);
+}
