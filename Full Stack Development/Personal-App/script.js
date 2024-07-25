@@ -205,7 +205,7 @@ function showUpdateForm(index){
         firstNameEl.value = personel.firstName;
 
         const lastNameEl = document.getElementById("updateLastName");
-        lastNameEl.value = ptoersonel.lastName;
+        lastNameEl.value = personel.lastName;
 
         const professionEl = document.getElementById("updateProfession");
         professionEl.value = personel.profession;
@@ -249,11 +249,10 @@ function closeUpdateForm(){
         addBtnEl.style.display = "initial";
 
         const updateDeleteBtnels = document.querySelectorAll(".update-delete-group");
-        for(let i in updateDeleteBtnels){            
-            const udBtnEl = updateDeleteBtnels[i];
-            if(udBtnEl !== undefined){
-                udBtnEl.style.display = "initial";
-            }            
+        updateDeleteBtnels.forEach(udBtnEl => {
+        if (udBtnEl !== undefined) {
+            udBtnEl.style.display = "initial";
         }
+        });
     }
 }
