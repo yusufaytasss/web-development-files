@@ -1,167 +1,150 @@
 let products = [];
-const shoppingCards = [];
-let image = "";
+let shoppingCards = [];
+let shoppingCartCount = 0;
 
-if(localStorage.getItem("products")){
-    products = JSON.parse(localStorage.getItem("products")); //JSON.parse ile stringe dönüştürmemizin sebebi LocalStorage da işlemeler string ifade ile tanımlı olmak zorunda.
+// Sayfa yüklendiğinde localStorage'dan sayacı al
+if (localStorage.getItem("products")) {
+    products = JSON.parse(localStorage.getItem("products"));
 }
 
-/*
-
-Manuel Tanımlamanın yapıldığı yer.
-
-const exampleProduct = {
-    name: "Xiaomi Redmi RMMNT215NF 21.5 75Hz 6ms Full HD Monitör",
-    price: 2479.99,
-    image: "https://m.media-amazon.com/images/I/41IGuXBZUuL._AC_UF1000,1000_QL80_.jpg" 
+if (localStorage.getItem("shoppingCards")) {
+    shoppingCards = JSON.parse(localStorage.getItem("shoppingCards"));
+    shoppingCartCount = JSON.parse(localStorage.getItem("shoppingCartCount"));
 }
 
-products.push(exampleProduct);
-
-const exampleProduct_Two = {
-    name: "Iphone 15 Pro Max 512 GB",
-    price: 67999.99,
-    image: "https://m.media-amazon.com/images/I/81nHfLrIogL._AC_SL1500_.jpg" 
-}
-
-products.push(exampleProduct_Two);
-*/
-
+//Fonksiyonu çağırmadığımız sürece çalışmaz!
 setProductToHTML();
-setShoppingCardCountUsingLocalStoreAge();
+setShoppingCardCount();
 
 function setProductToHTML() {
-    /*Döngüden önceki kayıtları siler bu sayede artarak giden kayıt şeklinin önüne geçilmiş olunur */
-    const productsRowElement = document.getElementById('productsRow');
+    // 'İnnerHTML += ......' her defasında eski elemaları ve yeni elemanı getirir bunu önlemek için for dan önce innerHTML'in içerisini boşaltıyoruz.
+    const productsRowElement = document.getElementById("productsRow")
     productsRowElement.innerHTML = "";
+    // Her eklenecek ürün için ekleme işlemini for ile yaptırıyoruz.
+    for(const index in products) {
+        const add = products[index];
 
-    for(const index in products){
-        const product = products[index];
-
-        /* Stok miktarını kontrol edip duruma göre sepete ekle butonunu çalıştırıyor. */
         let buttonText = `<button class="btn btn-danger w-100" disabled>
-            <i class="bi bi-exclamation-diamond-fill"></i>
-                No Product in Stock
+                <i class="bi bi-exclamation-diamond-fill"></i>
+                No product in stock
             </button>`;
 
-        if(product.stock > 0) {
-            buttonText = `<button onclick="addShoppingCard(${index})" class="btn btn-dark w-100">
-            <i class="bi bi-cart-plus"></i>
-                Add Shopping Cart
+        if(add.stock > 0) {
+            buttonText = `<button onclick="addShoppingCard(${index})" class="btn btn-outline-dark w-100">
+                <i class="bi bi-cart-plus"></i>
+                Add Shoping Cart
             </button>`
         }
 
-        const text = `
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mt-2">
-            <div class="card">
-                <div class="card-body product-image-div">
-                    <img src="${product.image}" alt="" style="width: 100%; max-height:100%">
-                    </div>
-                    <div class="card-header product-name-div" style="flex-direction: column">
-                        <h5>${product.name.substring(0,30)}...</h5>
-                        <span>Stock: ${product.stock}</span>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="alert alert-danger text-center w-100">
-                            ${formatCurency(product.price)} <!-- Türk lirası formatında formatlayıp değeri veriyor -->
-                        </h4>
-                        ${buttonText} 
-                    </div>
-                </div>
-            </div>`
-    
-    if(productsRowElement !== null) {
-        productsRowElement.innerHTML += text; //İnnerHTML içerisindeki verileri siler yeniden yazar. Bu yüzden + işareti kullanıyoruz.
-    }
-    /*
-    Yukarıdaki if bloğunu bir çok şekilde tanımlayabiliyoruz.
-    Örneğin Ternary operatörü şeklinde;
-    productsRowElement !== null ? productsRowElement?.innerHTML = text : ""
-    
-    Veya düz bir şekilde;
-    productsRowElement?.innerHTML = text;
-     */
-    
-    }
-    
-}
+        // HTML deki ürün bölümünü JS kısmına çektim.
+        const product = `<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mt-1">
+                        <div class="card">
+                            <div class="card-body product-image-div">
+                                <img src="${add.image}" alt="picture" >
+                            </div>
+                            <div class="card-header product-name-div" style= "flex-direction: column">
+                                <h6>
+                                    ${add.name.substring(0, 59)}
+                                </h6>
+                                <span>Stock: ${add.stock}</span>
+                            </div>
+                            <div class="card-bod text-center">
+                                <h6 class="alert alert-danger">
+                                    ${formatCurrencies(add.price)}
+                                </h6>
+                                ${buttonText}
+                            </div>
+                        </div>
+                    </div>`
 
-function getImage(e) {
-    const file = e.target.files[0];
-    const reader = new FileReader();
-
-    
-    reader.onload = function (event) {
-        image = event.target.result;
+        // Ürünü eklemek istediğim yere id vererek yine aynı id üzerinden sayfanın o bölümüne ekleme işlemi gerçekleştirdim.
+        
+        if (productsRowElement !== null) {
+            productsRowElement.innerHTML += product;
+        }
     }
-
-    reader.readAsDataURL(file);
 }
 
 function save(event) {
+    //Forma tıklandığında sayfanın yenilenmemesini sağlıyor. Bunu event ile yapıyoruz.
     event.preventDefault();
-    const nameElement = document.getElementById('name');
-    const priceElement = document.getElementById('price');
-    const stockElement = document.getElementById('stock');
-    const id = products.length + 1;
+    const nameElement = document.getElementById("name")
+    const priceElement = document.getElementById("price")
+    const imageElement = document.getElementById("image")
+    const stockElement = document.getElementById("stock")
 
-    const saveProduct = {
+    const id = products.length + 1 ;
+
+    // Elementlerin değerlerini alıyoruz
+    const newProduct = {
         id: id,
         name: nameElement.value,
-        image: image,
         price: priceElement.value,
+        image: imageElement.value,
         stock: stockElement.value
-    };
+    }
 
+    // Diziye ekleme işlemi gerçekleştiriliyor.
+    products.push(newProduct);
 
-    /* LocalStorage de depolama sağlıyor. Her user'ın kendi bir localStorage'ı bulunuyor. */
-    products.push(saveProduct);
-
-    localStorage.setItem("products",JSON.stringify(products));
+    //Local storage a eleman ekleme
+    localStorage.setItem("products", JSON.stringify(products));
+    localStorage.setItem("shoppingCards", JSON.stringify(shoppingCards));
+    localStorage.setItem("shoppingCartCount", shoppingCartCount);
 
     nameElement.value = "";
     priceElement.value = "";
-    stockElement.value = 0;
+    imageElement.value = "";
+    stockElement.value = 0; 
 
-    /* Ekleme işleminden sonra modal'ı kapatıyor */
-    const closeBtnElement = document.getElementById('addProductModalCloseBtn');
+    // Button tetiklendikten sonra modal formunu kapatmak için bu kodu kullanıyoruz.
+    const closeBtnElement = document.getElementById("addProductModalCloseBtn");
     closeBtnElement.click();
 
+    //Listeye eklenen elemanın sayafada görülebilmes için
     setProductToHTML();
 
+    //Toastr Mesajı için düzenlemeler...
     const toastrOptions = {
         closeButton: true,
         progressBar: true,
-        positionClass: "toast-bottom-right",
+        positionClass: "toast-bottom-right"
     }
     toastr.options = toastrOptions;
     toastr.success("Product add is successful");
-    // Warning | info | danger | success
-
+    //Warning | info | danger | success 
+    
 }
 
-/* Sepete eklendiğinde sayacın artmasını sağlayan kısım */
+// Sepete ürün ekleme
 function addShoppingCard(index) {
-    const product = products[index];
+    const product = products[index]
     shoppingCards.push(product);
-
+    //Sepete ürün eklendikçe stok sayısını azaltma
     product.stock -= 1;
-
+  
+    // Sayacı artır ve localStorage'a kaydet
+    shoppingCartCount++;
+    localStorage.setItem("shoppingCartCount", shoppingCartCount);
     localStorage.setItem("shoppingCards", JSON.stringify(shoppingCards));
     localStorage.setItem("products", JSON.stringify(products));
+    //Listeyi güncelledikten sonra ürünlerin stok adedinin güncellenmiş halini tekrardan gösteriyoruz setProductToHTML ile.
     setProductToHTML();
-    setShoppingCardCountUsingLocalStoreAge();
-}
+    // Sepetteki ürün sayısını da güncelle
+    setShoppingCardCount();
+  }
 
-function setShoppingCardCountUsingLocalStoreAge() {
-    let cards = [];
-    if (localStorage.getItem("shoppingCards")) {
-        cards = JSON.parse(localStorage.getItem("shoppingCards"));
-    }
+function setShoppingCardCount() {
     const shoppingCardCountElement = document.getElementById("shopping-card-count");
-    shoppingCardCountElement.innerHTML = cards.length;
+    shoppingCardCountElement.innerHTML = shoppingCartCount;
 }
 
 
-
-
+//  function setShoppingCardCountUsingLocalStorage() {
+//      let cards = [];
+//      if(localStorage.getItem("shoppingCards")) {
+//          cards = JSON.parse(localStorage.getItem("shoppingCards"));
+//      }
+//      const shoppingCardCountElement = document.getElementById("shopping-card-count");
+//      shoppingCardCountElement.innerHTML = cards.length;
+//  }

@@ -1,11 +1,10 @@
-function formatCurency(currency) {
-    const currencyNumber = parseInt(currency, 10);
-
-    const formatted = new Intl.NumberFormat("tr-TR", {
+function formatCurrencies(currencies) {
+    const currenciesNumber = parseFloat(currencies, 10);
+    const formatter = new Intl.NumberFormat("tr-TR", {
         style: "currency",
         currency: "TRY",
-        minimumFractionDigit: 2
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 20
     });
-
-    return formatted.format(currencyNumber);
+    return formatter.format(currenciesNumber);
 }

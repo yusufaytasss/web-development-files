@@ -1,83 +1,145 @@
-shoppingCards = []; 
+let shoppingCards = [];
+let totalAmount = 0;
+let shoppingCartCount = 0;
+if (localStorage.getItem("shoppingCards")) {
+  shoppingCards = JSON.parse(localStorage.getItem("shoppingCards"));
+  shoppingCartCount = JSON.parse(localStorage.getItem("shoppingCartCount"));
 
-
-if(localStorage.getItem("shoppingCards")){
-    shoppingCards = JSON.parse(localStorage.getItem("shoppingCards")); //JSON.parse ile stringe dönüştürmemizin sebebi LocalStorage da işlemeler string ifade ile tanımlı olmak zorunda.
+  //Total fiyatı hesaplama
+  for(let card of shoppingCards) {
+    totalAmount += +card.price; 
+  }
 }
 
 setShoppingCardToHTML();
-setShoppingCardCountUsingLocalStoreAge();
+setShoppingCardCountUsingLocalStorage();
 
-
+//Güncelleme metodu(fonksiyonu)
 function setShoppingCardToHTML() {
-    /*Döngüden önceki kayıtları siler bu sayede artarak giden kayıt şeklinin önüne geçilmiş olunur */
-    const shoppingCardsRowElement = document.getElementById('shoppingCardsRow');
-    shoppingCardsRowElement.innerHTML = "";
+  const shoppingCardsElement = document.getElementById("shoppingCardsRow");
+  shoppingCardsElement.innerHTML = "";
 
-    for(const index in shoppingCards){
+  for(const index in shoppingCards){
         const shoppingCard = shoppingCards[index];
         const text = `
-        <div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-12 mt-2">
-            <div class="card">
-                <div class="card-body product-image-div">
-                    <img src="${shoppingCard.image}" alt="" style="width: 100%; max-height:100%">
-                    </div>
-                    <div class="card-header product-name-div">
-                        <h5>${shoppingCard.name.substring(0,84)}</h5>
-                    </div>
-                    <div class="card-body">
-                        <h4 class="alert alert-danger text-center w-100">
-                            ${formatCurency(shoppingCard.price)}
-                        </h4>
-                        <button onclick="deleteByIndex(${index}, ${shoppingCard.id})" class="btn btn-danger w-100">
-                        <i class="bi bi-trash"></i>
-                            Delete
-                        </button>
-                    </div>
-                </div>
-            </div>`
-    
-    if(shoppingCardsRowElement !== null) {
-        shoppingCardsRowElement.innerHTML += text; //İnnerHTML içerisindeki verileri siler yeniden yazar. Bu yüzden + işareti kullanıyoruz.
-    }
-    }
-}
+        <div class="col-xl-3 col-lg-4 col-md-6 col-sm-8 col-12 mt-1">
+        <div class="card">
+          <div class="card-body product-image-div">
+            <img src="${shoppingCard.image}" alt="" style="width: 100%; max-height:100%">
+          </div>
+          <div class="card-header product-name-div">
+            <h6>${shoppingCard.name.substring(0,84)}</h6>
+          </div>
+          <div class="card-body text-center">
+            <h4 class="alert alert-success">
+            ${formatCurrencies(shoppingCard.price)}
+            </h4>
+            <button onclick="deleteByIndex(${index},${shoppingCard.id})" class="btn btn-outline-danger w-100">
+              <i class="bi bi-trash"></i>
+              Delete
+            </button>
+          </div>
+        </div>
+        </div>`
 
-
-function setShoppingCardCountUsingLocalStoreAge() {
-    let cards = [];
-    if(localStorage.getItem("shoppingCards")){
-        cards = JSON.parse(localStorage.getItem("shoppingCards"));
-    }
-    const shoppingCardCountElement = document.getElementById("shopping-card-count");
-    shoppingCardCountElement.innerHTML = cards.length;
-}
-
-function deleteByIndex(index, id) {
-
-    Swal.fire({
-        title: 'Delete',
-        text: 'Do you want to delete',
-        icon: 'question',
-        confirmButtonText: 'Delete',
-        showCancelButton: true,
-        cancelButtonText: 'Cancel'
-      }).then((res)=>{
-        console.log(res);
-        if(res.isConfirmed){
-            this.shoppingCards.splice(index, 1);
-
-            localStorage.setItem("shoppingCards", JSON.stringify(this.shoppingCards));
-
-            const products = JSON.parse(localStorage.getItem("products"));
-
-            const product = products.find(p => p.id === id);
-            product.stock += 1;
-
-            localStorage.setItem("products", JSON.stringify(products));
-
-            setShoppingCardToHTML();
-            setShoppingCardCountUsingLocalStoreAge();
+        if(shoppingCardsElement !== null){
+            shoppingCardsElement.innerHTML += text;
         }
-      });
+    }
+
+    const totalAmountElement = document.getElementById('total_amount');
+    totalAmountElement.innerHTML = formatCurrencies(totalAmount);
+}
+
+//SİLİNEBİLİR
+// function setShoppingCardCountUsingLocalStorage() {
+//   const shoppingCardCountElement = document.getElementById("shopping-card-count");
+//   shoppingCardCountElement.innerHTML = shoppingCartCount;
+// }
+
+function setShoppingCardCountUsingLocalStorage() {
+  let cards = [];
+  if (localStorage.getItem("shoppingCards")) {
+    cards = JSON.parse(localStorage.getItem("shoppingCards"));
+  }
+
+  const shoppingCardCountElement = document.getElementById("shopping-card-count");
+  shoppingCardCountElement.innerHTML = cards.length;
+}
+
+const deleteByIndex = (index, id) => {
+  Swal.fire({
+    title: 'Delete!',
+    text: 'Do you want to delete',
+    icon: 'question',
+    confirmButtonButtonText: 'Delete',
+    showConfirmButton: true,
+    showCancelButton: true,
+    cancelButtonText: 'Cancel'
+  }).then((response) => {
+    if(response.isConfirmed) {
+      shoppingCards.splice(index, 1);
+      localStorage.setItem("shoppingCards", JSON.stringify(shoppingCards));
+
+      const products = JSON.parse(localStorage.getItem("products"));
+      const product = products.find(p => p.id === id)
+      product.stock += 1;
+
+      //products listesini güncelliyor işlemler bittikten sonra
+      localStorage.setItem("products", JSON.stringify(products));
+
+      // Sepet sayısını azalt
+      shoppingCartCount--;
+      localStorage.setItem("shoppingCartCount", shoppingCartCount);
+
+      setShoppingCardToHTML();
+      setShoppingCardCountUsingLocalStorage();
+    }
+  });
+};
+
+function payAndCreateOrder(event) {
+  //Form elementi için
+  event.preventDefault();
+  const currenctTarget = event.currentTarget;
+  Swal.fire({
+    title: 'Pay?',
+    text: 'Do you want to but this products',
+    icon: 'question',
+    confirmButtonText: 'Buy',
+    showConfirmButton: true,
+    showCancelButton: true,
+    cancelButtonText: 'Cancel'
+  }).then(result => {
+    if(result.isConfirmed) {
+      const creditCard = {};
+      for(const el of currenctTarget) {
+        if(el.name) {
+          creditCard[el.name] = el.value;
+        }
+      }
+      const data = {
+        creditCard: creditCard,
+        totalAmount: totalAmount,
+        products: shoppingCards
+      }
+    
+      // Sepetteki ürünleri temizleme
+      shoppingCards = [];
+      localStorage.removeItem("shoppingCards");
+      setShoppingCardToHTML();
+      setShoppingCardCountUsingLocalStorage();
+    
+      localStorage.setItem("orders", JSON.stringify(data));
+
+      for(let el of currenctTarget) {
+        if(el.name) {
+          el.value= "";
+          totalAmount = 0;
+        }
+      }
+      setShoppingCardToHTML();
+    }
+  });
+  
 }
