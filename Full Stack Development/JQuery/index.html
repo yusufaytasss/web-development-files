@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JQuery</title>
+</head>
+<body>
+    <h1>JQuery</h1>
+    <h2 id="h2El">H2 element</h2>
+    <input type="text">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+
+        // Javascript de
+        document.querySelector("h2").innerHTML = "123123";
+        // JQuery ile etikete erişme
+        $("h2").html("aaaaaa") // İnnerHTML
+
+        // JQuery ile id üzerinden erişim sağlama
+        $("#h2El").text("123123") // İnnerText
+
+        // Javascript ile input elementine erişme
+        document.querySelector("input").value = "asdsadasdasd"
+        // JQuery ile input değerine erişme
+        $("input").val("Yusuf AYTAŞ")
+        // JQuery ile input değerine css verme
+        $("input").css("color","white")
+        $("input").css("background-color","red")
+
+        // JQuery ile APİ Request - (AJAX)
+        $.ajax({
+            method: "GET",
+            url: "https://jsonplaceholder.typicode.com/todos/1",
+            success: (response) => {
+                console.log(response)
+            }
+        })
+        // POST Request
+        // $.ajax({
+        //     method: "POST",
+        //     url: "https://jsonplaceholder.typicode.com/todos/1",
+        //     data: JSON.stringify({value: "Yusuf AYTAS"}),
+        //     success: (response) => {
+
+        //     }
+        // })
+
+    </script>
+</body>
+</html>
