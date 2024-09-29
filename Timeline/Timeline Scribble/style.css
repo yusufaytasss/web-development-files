@@ -1,0 +1,89 @@
+@import "compass/css3";
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans:300,700);
+/* Variables */
+/* Fonts */
+ body {
+	 font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	 font-size: 1em;
+	 font-weight: 300;
+	 line-height: 1.5;
+	 letter-spacing: 0.05em;
+}
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+/* Styling */
+ .timeline {
+	 margin: 4em auto;
+	 position: relative;
+	 max-width: 46em;
+}
+.timeline li {
+    list-style: none;
+  }
+ .timeline:before {
+	 background-color: black;
+	 content: '';
+	 margin-left: 39px;
+	 position: absolute;
+	 top: 0;
+	 left: 2em;
+	 width: 1px;
+	 height: 100%;
+}
+ .timeline-event {
+	 position: relative;
+}
+ .timeline-event:hover .timeline-event-icon {
+    transform: rotate(-45deg);
+	background-color: #a83279;
+}
+.timeline-event:hover .timeline-event-thumbnail {
+    box-shadow: inset 40em 0 0 0 #a83279;
+}
+ .timeline-event-copy {
+	 padding: em;
+	 position: relative;
+	 top: -1.875em;
+	 left: 4em;
+	 width: 80%;
+}
+ .timeline-event-copy h3 {
+	 font-size: 1.75em;
+}
+ .timeline-event-copy h4 {
+	 font-size: 1.2em;
+	 margin-bottom: 1.2em;
+}
+ .timeline-event-copy strong {
+	 font-weight: 700;
+}
+ .timeline-event-copy p:not(.timeline-event-thumbnail) {
+	 padding-bottom: 1.2em;
+}
+ .timeline-event-icon {
+     transition: transform 0.2s ease-in;
+     transform: rotate(45deg);
+	 background-color: black;
+	 outline: 20px solid white;
+	 display: block;
+	 margin: -0.9em 0.1em 0.1em -0.5em;
+	 position: absolute;
+	 top: 0;
+	 left: 2em;
+	 width: 1em;
+	 height: 1em;
+}
+ .timeline-event-thumbnail {
+    transition: box-shadow 0.5s ease-in 0.1s;
+	 color: white;
+	 font-size: 0.75em;
+	 background-color: black;
+     box-shadow: inset 0 0 0 0em #ef795a;
+	 display: inline-block;
+	 margin-bottom: 1.2em;
+	 padding: 0.25em 1em 0.2em 1em;
+}
+ 
